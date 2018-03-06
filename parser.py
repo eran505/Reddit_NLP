@@ -2,6 +2,8 @@ import json,os
 import numpy as np
 import pandas as pd
 
+import walker
+
 class Node(object):
 
     def __init__(self,id_node,id_father,n_author,data_i,text):
@@ -49,17 +51,23 @@ def data_handler(string_data,d):
     return False
 
 
-def main_fun(file_path): #7tu0ft
+def main_fun(path): #7tu0ft
     d={}
     ctr=0
     print ""
-    if os.path.isfile(file_path) is False:
-        raise "[Error] cant find the json file --> {}".format(file_path)
-    with open(file_path) as f:
-        for line in f:
-            if data_handler(line,d):
-                ctr += 1
+    #if os.path.isfile(file_path) is False:
+    #    raise "[Error] cant find the json file --> {}".format(file_path)
+    files_list = scaner(path)
+    for p_path in files_list:
+        with open(p_path) as f:
+            for line in f:
+                if data_handler(line,d):
+                    ctr += 1
     make_tree()
+    branc_dico = branching_factor()
+    if 'ZeusThunder369' in gAuthor:
+        print ""
+    print branc_dico
     print gTree
     print gAuthor
 
@@ -89,6 +97,23 @@ def make_tree():
         author_name = gTree[key].author
         set_gAuthor(author_name,key)
 
+def scaner(root_path):
+    print ""
+    obj_scanner =  walker.walker(root_path)
+    out_file = obj_scanner.walk("RC")
+    return out_file
+
+def branching_factor():
+    print ""
+    d_factor={}
+    for key_i in gTree:
+        descendants = gTree[key_i].descendants
+        if descendants is not None:
+            d_factor[key_i] = len(descendants)
+        else:
+            d_factor[key_i]=0
+    return d_factor
 if __name__ == "__main__":
-    path = '/home/eran/Downloads/RC_2018-01-29'
+    path = '/home/ise/NLP/data_reddit/RC_2018-01-29'
+    path = '/home/ise/NLP/data_reddit/'
     main_fun(path)
