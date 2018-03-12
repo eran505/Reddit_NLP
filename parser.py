@@ -39,6 +39,8 @@ def readInChunks(fileObj, chunkSize=2048):
             break
         yield data
 
+
+
 def data_handler(string_data,d):
     #print "data = {}".format(string_data)
     data = json.loads(string_data)
@@ -55,8 +57,6 @@ def main_fun(path): #7tu0ft
     d={}
     ctr=0
     print ""
-    #if os.path.isfile(file_path) is False:
-    #    raise "[Error] cant find the json file --> {}".format(file_path)
     files_list = scaner(path)
     for p_path in files_list:
         with open(p_path) as f:
@@ -66,7 +66,10 @@ def main_fun(path): #7tu0ft
     make_tree()
     branc_dico = branching_factor()
     if 'ZeusThunder369' in gAuthor:
-        print ""
+        list_comments = gAuthor['ZeusThunder369']
+        for comm in list_comments:
+            print gTree[comm].txt_data
+            print '\n'*2
     print branc_dico
     print gTree
     print gAuthor
