@@ -50,3 +50,15 @@ def mkdir_system(path_root,name,is_del=True):
             return '{}{}'.format(path_root, name)
     os.system('mkdir {}{}'.format(path_root,name))
     return '{}{}'.format(path_root,name)
+
+def readInChunks(fileObj, chunkSize=2048):
+    """
+    Lazy function to read a file piece by piece.
+    Default chunk size: 2kB.
+    """
+    while True:
+        data = fileObj.read(chunkSize)
+        if not data:
+            break
+        yield data
+
