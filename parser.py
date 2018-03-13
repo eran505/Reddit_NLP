@@ -116,6 +116,9 @@ def branching_factor():
         else:
             d_factor[key_i]=0
     return d_factor
+
+
+
 if __name__ == "__main__":
     path = '/home/ise/NLP/data_reddit/RC_2018-01-29'
     path = '/home/ise/NLP/data_reddit/'
